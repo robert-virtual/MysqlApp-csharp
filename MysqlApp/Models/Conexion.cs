@@ -10,7 +10,15 @@ namespace MysqlApp.Models
 {
     public class Conexion
     {
-        protected MySqlConnection Connection { get; set; } = new MySqlConnection($"server=localhost;uid=robert;pwd=P@ssw0rd;database=amazondb");
-
+        protected MySqlConnection Connection { get; set; } 
+        public Conexion()
+        {
+            string server = "localhost";
+            string user = "gabriela";
+            string password = "P@ass0rd";
+            string database = "amazondb";
+            string connString = $"server={server};uid={user};pwd={password};database={database}";
+            Connection  = new MySqlConnection(connString);
+        }
     }
 } 

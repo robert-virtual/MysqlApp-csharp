@@ -33,6 +33,8 @@
             this.n_stock = new System.Windows.Forms.NumericUpDown();
             this.n_price = new System.Windows.Forms.NumericUpDown();
             this.btn_save = new System.Windows.Forms.Button();
+            this.cb_categories = new System.Windows.Forms.ComboBox();
+            this.btn_nueva_category = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_products)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.n_stock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.n_price)).BeginInit();
@@ -71,7 +73,7 @@
             // 
             // btn_save
             // 
-            this.btn_save.Location = new System.Drawing.Point(686, 305);
+            this.btn_save.Location = new System.Drawing.Point(686, 384);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(150, 29);
             this.btn_save.TabIndex = 3;
@@ -79,11 +81,31 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
+            // cb_categories
+            // 
+            this.cb_categories.FormattingEnabled = true;
+            this.cb_categories.Location = new System.Drawing.Point(686, 287);
+            this.cb_categories.Name = "cb_categories";
+            this.cb_categories.Size = new System.Drawing.Size(151, 28);
+            this.cb_categories.TabIndex = 4;
+            // 
+            // btn_nueva_category
+            // 
+            this.btn_nueva_category.Location = new System.Drawing.Point(686, 321);
+            this.btn_nueva_category.Name = "btn_nueva_category";
+            this.btn_nueva_category.Size = new System.Drawing.Size(150, 29);
+            this.btn_nueva_category.TabIndex = 3;
+            this.btn_nueva_category.Text = "Nueva categoria";
+            this.btn_nueva_category.UseVisualStyleBackColor = true;
+            this.btn_nueva_category.Click += new System.EventHandler(this.btn_nueva_category_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(948, 607);
+            this.Controls.Add(this.cb_categories);
+            this.Controls.Add(this.btn_nueva_category);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.n_price);
             this.Controls.Add(this.n_stock);
@@ -106,5 +128,7 @@
         private NumericUpDown n_stock;
         private NumericUpDown n_price;
         private Button btn_save;
+        private ComboBox cb_categories;
+        private Button btn_nueva_category;
     }
 }

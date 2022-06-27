@@ -1,47 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Dapper;
+using Dapper.Contrib.Extensions;
 
 namespace MysqlApp.Models
 {
-    public class Products:Conexion
+    [Table("Products")]
+    public class Products:BaseModel<Products>
     {
-        public string name { get; set; }
-        public int stock { get; set; }
-        public float price { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Stock { get; set; }
+        public float Price { get; set; }
+        public int CategoryId { get; set; }
 
-
-
-        public DataTable GetAll()
+        [Write(false)]
+        public Category Category { get; set; }
+        
+        public IEnumerable<Products> GetAll() 
         {
-            Connection.Open();
-            MySqlCommand commd = new MySqlCommand("Select * from products", Connection);
-            MySqlDataReader datareader = commd.ExecuteReader();
-            datareader.Read();
-            DataTable products = new DataTable();
-            products.Load(datareader);
-            Connection.Close();
-            return products; 
+            using(var conn = Connection)
+            {
+                var sql = @"SELECT * FROM Products p INNER JOIN Categories c on c.Id = p.CategoryId";
+                var products = conn.Query<Products, Category, Products>(sql, (p, c) => {
+                    p.Category = c;
+                    return p;
+                });
+                return products;
+            }
+
         }
-        public int Save()
-        {
-            Connection.Open();
-            MySqlCommand commd = new MySqlCommand("insert into products(name,stock,price) values(@name,@stock,@price)", Connection);
-            commd.Parameters.AddWithValue("@name", name);
-            commd.Parameters.AddWithValue("@stock", stock);
-            commd.Parameters.AddWithValue("@price", price);
-            commd.Parameters["@name"].Value = name;
-            commd.Parameters["@stock"].Value = stock;
-            commd.Parameters["@price"].Value = price;
-            commd.Prepare();
-            var res = commd.ExecuteNonQuery();
-            Connection.Close();
-            return res; 
-        }
+
     }
 }
